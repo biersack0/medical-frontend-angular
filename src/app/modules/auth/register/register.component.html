@@ -1,0 +1,117 @@
+<div class="authentication-bg pb-0">
+	<div class="auth-fluid">
+		<div class="auth-fluid-form-box">
+			<div class="card-body d-flex flex-column h-100 gap-3">
+				<!-- Logo -->
+				<div class="auth-brand text-center text-lg-start">
+					<a class="logo-dark text-center">
+						<span
+							><img src="assets/img/logo-dark.png" alt="dark logo" height="30"
+						/></span>
+					</a>
+					<a class="logo-light">
+						<span
+							><img src="assets/img/logo-light.png" alt="logo" height="30"
+						/></span>
+					</a>
+				</div>
+
+				<div class="my-auto">
+					<h4 class="mt-0">Registrarse</h4>
+					<p class="text-muted mb-4">
+						No tienes una cuenta? Crea una, esto toma menos de un minuto.
+					</p>
+
+					<form [formGroup]="registerForm" (ngSubmit)="register()">
+						<div class="mb-3">
+							<app-control-message [control]="registerForm.get('name')!">
+								<label for="fullname" class="form-label">Nombre</label>
+								<input
+									class="form-control"
+									type="text"
+									formControlName="name"
+									placeholder="Ingresa tu nombre" />
+							</app-control-message>
+						</div>
+
+						<div class="mb-3">
+							<app-control-message [control]="registerForm.get('email')!">
+								<label for="emailaddress" class="form-label"
+									>Correo electrónico</label
+								>
+								<input
+									class="form-control"
+									type="email"
+									formControlName="email"
+									placeholder="Ingresa tu correo electrónico" />
+							</app-control-message>
+						</div>
+
+						<div class="mb-3">
+							<app-control-message [control]="registerForm.get('password')!">
+								<label for="password" class="form-label">Contraseña</label>
+								<div class="input-group input-group-merge">
+									<input
+										type="{{ passwordType }}"
+										class="form-control"
+										formControlName="password"
+										placeholder="Ingresa tu contraseña" />
+									<div
+										class="input-group-text"
+										[ngClass]="{ 'show-password': passwordType !== 'password' }"
+										(click)="togglePassword()"
+										style="background-color: transparent">
+										<span class="password-eye"></span>
+									</div>
+								</div>
+							</app-control-message>
+						</div>
+
+						<div class="mb-3">
+							<div class="form-check">
+								<app-control-message
+									[control]="registerForm.get('terms')!"
+									[customMessages]="{
+										required: 'Debe aceptar los términos y condiciones'
+									}">
+									<input
+										type="checkbox"
+										class="form-check-input"
+										formControlName="terms"
+										id="checkbox-signup" />
+									<label class="form-check-label pointer" for="checkbox-signup"
+										>Acepto Términos y condiciones</label
+									>
+								</app-control-message>
+							</div>
+						</div>
+
+						<div class="mb-3 text-center">
+							<button class="btn btn-primary" type="submit">Registrarse</button>
+						</div>
+					</form>
+				</div>
+
+				<footer class="footer footer-alt">
+					<p class="text-muted">
+						Ya tienes una cuenta?
+						<a class="text-muted ms-1 pointer" (click)="goToLogin()"
+							><b>Iniciar Sesión</b></a
+						>
+					</p>
+				</footer>
+			</div>
+		</div>
+
+		<div class="auth-fluid-right text-center">
+			<div class="auth-user-testimonial">
+				<h2 class="mb-3">MEDICAL</h2>
+				<p class="lead">
+					<i class="mdi mdi-format-quote-open"></i> Donde tu salud es lo más
+					importante.
+					<i class="mdi mdi-format-quote-close"></i>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<div class="leftside-menu">
+	<a [routerLink]="['/dashboard']" class="logo logo-light">
+		<span class="logo-sm">
+			<img src="assets/img/logo.png" alt="small logo" />
+		</span>
+		<span class="logo-lg">
+			<img src="assets/img/logo-light.png" alt="logo" />
+		</span>
+	</a>
+
+	<!-- Sidebar Hover Menu Toggle Button -->
+	<div
+		class="button-sm-hover"
+		data-bs-toggle="tooltip"
+		data-bs-placement="right"
+		title="Show Full Sidebar">
+		<i class="ri-checkbox-blank-circle-line align-middle"></i>
+	</div>
+
+	<!-- Full Sidebar Menu Close Button -->
+	<div class="button-close-fullsidebar">
+		<i class="ri-close-fill align-middle"></i>
+	</div>
+
+	<!-- Sidebar -left -->
+	<div class="h-100" id="leftside-menu-container" data-simplebar>
+		<div class="leftbar-user">
+			<a href="pages-profile.html">
+				<img
+					src="assets/images/users/avatar-1.jpg"
+					alt="user-image"
+					height="42"
+					class="rounded-circle shadow-sm" />
+				<span class="leftbar-user-name mt-2">Dominic Keller</span>
+			</a>
+		</div>
+
+		<!--- Sidemenu -->
+		<ul class="side-nav">
+			<li class="side-nav-title">Dashboard</li>
+
+			<li
+				class="side-nav-item"
+				*ngFor="let route of routes"
+				[routerLinkActive]="'menuitem-active'"
+				[routerLinkActiveOptions]="{ exact: true }">
+				<a [routerLink]="route.path" class="side-nav-link">
+					<i [ngClass]="route.icon"></i>
+					<span> {{ route.name }} </span>
+				</a>
+			</li>
+		</ul>
+
+		<div class="clearfix"></div>
+	</div>
+</div>
