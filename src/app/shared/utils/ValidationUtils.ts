@@ -6,7 +6,7 @@ export class ValidationUtils {
 	}
 
 	getMessage(errorName: string, errorValue: any) {
-		console.log(errorName, errorValue);
+		// console.log(errorName, errorValue);
 
 		switch (errorName) {
 			case 'required':

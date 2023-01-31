@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UsersResponse } from '@interfaces/index';
+import { UserResponse, UsersResponse } from '@interfaces/index';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,5 +15,15 @@ export class UserService {
 
 	getUsers() {
 		return this.http.get<UsersResponse>(`${this.apiUrl}/user`);
+	}
+
+	updateUser(id: string, name: string) {
+		const data = { name };
+		/* {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		} */
+		return this.http.patch<UserResponse>(`${this.apiUrl}/user/${id}`, data);
 	}
 }

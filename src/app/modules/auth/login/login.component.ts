@@ -2,6 +2,7 @@ import {
 	AfterViewInit,
 	Component,
 	ElementRef,
+	NgZone,
 	OnInit,
 	ViewChild,
 } from '@angular/core';
@@ -25,7 +26,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
 	isLoading = false;
 	@ViewChild('googleBtn') googleBtn!: ElementRef;
 
-	constructor(private router: Router, private authService: AuthService) {}
+	constructor(
+		private router: Router,
+		private authService: AuthService,
+		private ngZone: NgZone
+	) {}
 
 	ngOnInit(): void {
 		this.initLoginForm();
@@ -45,13 +50,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
 				Validators.required,
 				Validators.minLength(8),
 			]),
+			remember: new FormControl(false),
 		});
 	}
 
 	login() {
 		this.loginForm.markAllAsTouched();
 		if (this.loginForm.valid) {
-			const { email, password } = this.loginForm.value;
+			const { email, password, remember } = this.loginForm.value;
 
 			this.isLoading = true;
 
@@ -63,9 +69,31 @@ export class LoginComponent implements OnInit, AfterViewInit {
 						const { access_token, user } = data;
 						localStorage.setItem('token', access_token);
 						localStorage.setItem('user', JSON.stringify(user));
+
+						if (remember) {
+							localStorage.setItem('remember', JSON.stringify(remember));
+						}
+
 						this.router.navigate(['/dashboard']);
 					},
 					error: ({ error }) => {
+						if (error.errors) {
+							const getStrings = (arr: []): string[] => {
+								return arr.reduce(
+									(result: any[], obj: any) =>
+										result.concat(...Object.values(obj)),
+									[]
+								);
+							};
+
+							Swal.fire({
+								title: `${error.message}`,
+								html: `${getStrings(error.errors).join('<br>')}`,
+								icon: 'error',
+								confirmButtonText: 'Close',
+							});
+						}
+
 						Swal.fire({
 							title: 'Error',
 							text: `${error.message}`,
@@ -77,15 +105,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	loginGoggle() {
-		// login google
-	}
-
 	initGoogle() {
 		google.accounts.id.initialize({
 			client_id:
 				'978287541699-odnrojssenjn7g83h811k8eaf8rf22c4.apps.googleusercontent.com',
-			callback: (response: any) => this.handleCredentialResponse(response),
+			callback: (response: any) =>
+				this.ngZone.run(() => {
+					this.loginGoggle(response);
+				}),
 		});
 		google.accounts.id.renderButton(this.googleBtn.nativeElement, {
 			theme: 'outline',
@@ -95,8 +122,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
 		google.accounts.id.prompt();
 	}
 
-	handleCredentialResponse(response: any) {
-		console.log('Encoded JWT ID token: ' + response.credential);
+	loginGoggle(response: any) {
+		this.authService.loginGoogle(response.credential).subscribe({
+			next: ({ data }) => {
+				const { access_token, user } = data;
+				localStorage.setItem('token', access_token);
+				localStorage.setItem('user', JSON.stringify(user));
+				localStorage.setItem('loginGoogle', 'true');
+
+				this.router.navigate(['/dashboard']);
+			},
+		});
 	}
 
 	togglePassword() {

@@ -6,4 +6,5 @@ export interface User {
 	role: string;
 	hasGoogle: boolean;
 	isActive: boolean;
+	image?: string;
 }

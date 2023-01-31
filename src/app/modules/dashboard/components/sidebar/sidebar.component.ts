@@ -13,6 +13,11 @@ export class SidebarComponent {
 			icon: 'uil-home-alt',
 		},
 		{
+			name: 'Profile',
+			path: '/dashboard/profile',
+			icon: 'uil-user',
+		},
+		{
 			name: 'Users',
 			path: '/dashboard/users',
 			icon: 'uil-users-alt',

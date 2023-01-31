@@ -295,14 +295,16 @@
 					aria-expanded="false">
 					<span class="account-user-avatar">
 						<img
-							src="assets/images/users/avatar-1.jpg"
+							[src]="user.image | notImage | safe : 'resourceUrl'"
 							alt="user-image"
 							width="32"
+							referrerpolicy="no-referrer"
 							class="rounded-circle" />
 					</span>
 					<span class="d-lg-flex flex-column gap-1 d-none">
-						<h5 class="my-0">Dominic Keller</h5>
-						<h6 class="my-0 fw-normal">Founder</h6>
+						<h5 class="my-0">{{ user.name | titlecase }}</h5>
+						<h6 class="my-0 fw-normal">{{ user.email }}</h6>
+						<h5>{{ message }}</h5>
 					</span>
 				</a>
 				<div
@@ -313,21 +315,21 @@
 					</div>
 
 					<!-- item-->
-					<a href="javascript:void(0);" class="dropdown-item">
+					<a (click)="goToProfile()" class="dropdown-item">
 						<i class="mdi mdi-account-circle me-1"></i>
-						<span>My Account</span>
+						<span>Mi Perfil</span>
 					</a>
 
 					<!-- item-->
 					<a href="javascript:void(0);" class="dropdown-item">
 						<i class="mdi mdi-account-edit me-1"></i>
-						<span>Settings</span>
+						<span>Configuraciones</span>
 					</a>
 
 					<!-- item-->
-					<a href="javascript:void(0);" class="dropdown-item">
+					<a (click)="logout()" class="dropdown-item pointer">
 						<i class="mdi mdi-logout me-1"></i>
-						<span>Logout</span>
+						<span>Cerrar sesión</span>
 					</a>
 				</div>
 			</li>

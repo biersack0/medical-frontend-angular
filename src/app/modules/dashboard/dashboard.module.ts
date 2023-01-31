@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,8 @@ import { HomeComponent } from './home/home.component';
 		NavbarComponent,
 		FooterComponent,
 		BreadcrumbComponent,
-  HomeComponent,
+		HomeComponent,
+		ProfileComponent,
 	],
 	imports: [
 		CommonModule,

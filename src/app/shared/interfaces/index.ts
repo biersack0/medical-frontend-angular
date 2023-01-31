@@ -25,6 +25,10 @@ export interface UsersResponse extends ResponseInterface {
 	};
 }
 
+export interface UserResponse extends ResponseInterface {
+	data: User;
+}
+
 export interface HospitalsResponse extends ResponseInterface {
 	data: {
 		total: number;
