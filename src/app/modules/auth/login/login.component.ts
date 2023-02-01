@@ -9,6 +9,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
+import { UserService } from '@services/user.service';
 import { finalize } from 'rxjs';
 import { ValidationUtils } from 'src/app/shared/utils/validation-utils';
 import Swal from 'sweetalert2';
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 	constructor(
 		private router: Router,
 		private authService: AuthService,
+		private userService: UserService,
 		private ngZone: NgZone
 	) {}
 
@@ -68,7 +70,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 					next: ({ data }) => {
 						const { access_token, user } = data;
 						localStorage.setItem('token', access_token);
-						localStorage.setItem('user', JSON.stringify(user));
+						this.userService.setUser(user);
 
 						if (remember) {
 							localStorage.setItem('remember', JSON.stringify(remember));
@@ -126,8 +128,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
 		this.authService.loginGoogle(response.credential).subscribe({
 			next: ({ data }) => {
 				const { access_token, user } = data;
+				this.userService.setUser(user);
 				localStorage.setItem('token', access_token);
-				localStorage.setItem('user', JSON.stringify(user));
 				localStorage.setItem('loginGoogle', 'true');
 
 				this.router.navigate(['/dashboard']);

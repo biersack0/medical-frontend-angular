@@ -1,97 +1,88 @@
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
-		<div class="col-md-6">
-			<form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
-				<div class="mb-3">
-					<app-control-message [control]="profileForm.get('name')!">
-						<label for="fullname" class="form-label">Nombre</label>
-						<input
-							class="form-control"
-							type="text"
-							formControlName="name"
-							placeholder="Ingresa tu nombre" />
-					</app-control-message>
-				</div>
-				<div class="mb-3">
-					<app-control-message [control]="profileForm.get('email')!">
-						<label class="form-label">Correo electrónico</label>
-						<input
-							class="form-control"
-							type="email"
-							formControlName="email"
-							placeholder="Ingresa tu correo electrónico" />
-					</app-control-message>
-				</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+								<div class="mb-3">
+									<app-control-message [control]="profileForm.get('name')!">
+										<label for="fullname" class="form-label">Nombre</label>
+										<input
+											class="form-control"
+											type="text"
+											formControlName="name"
+											placeholder="Ingresa tu nombre" />
+									</app-control-message>
+								</div>
+								<div class="mb-3">
+									<app-control-message [control]="profileForm.get('email')!">
+										<label class="form-label">Correo electrónico</label>
+										<input
+											class="form-control"
+											type="email"
+											formControlName="email"
+											placeholder="Ingresa tu correo electrónico" />
+									</app-control-message>
+								</div>
 
-				<div class="row">
-					<div class="col-12 d-flex justify-content-center">
-						<button
-							class="btn btn-primary"
-							type="submit"
-							[disabled]="isLoading"
-							style="width: 250px">
-							<i class="mdi mdi-login"></i> Guardar
-						</button>
+								<div class="row">
+									<div class="col-12 d-flex justify-content-center">
+										<button
+											class="btn btn-primary"
+											type="submit"
+											[disabled]="isLoading"
+											style="width: 250px">
+											<i class="mdi mdi-login"></i> Guardar
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="col-md-6">
+							<div class="mb-3 mt-3 mt-xl-0">
+								<label for="projectname" class="mb-0">Avatar</label>
+								<!-- File Upload -->
+								<form
+									[formGroup]="uploadForm"
+									class="dropzone"
+									id="myAwesomeDropzone"
+									data-plugin="dropzone"
+									data-previews-container="#file-previews"
+									data-upload-preview-template="#uploadPreviewTemplate">
+									<div class="fallback">
+										<input type="file" (change)="changeImage($event)" />
+									</div>
+
+									<div class="col-sm-4 col-md-3 col-lg-3 mx-auto">
+										<img
+											*ngIf="!imagePrev"
+											class="img-fluid"
+											[src]="user.image | notImage | safe : 'resourceUrl'"
+											alt="imagen-perfil" />
+										<img
+											*ngIf="imagePrev"
+											class="img-fluid"
+											[src]="imagePrev"
+											alt="imagen" />
+									</div>
+								</form>
+							</div>
+							<div class="row">
+								<div class="col-12 d-flex justify-content-center">
+									<button
+										class="btn btn-primary"
+										type="button"
+										(click)="uploadImage()"
+										style="width: 250px">
+										<i class="mdi mdi-login"></i> Actualizar imagen
+									</button>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-auto mt-4 mx-auto">
-						<div #googleBtn id="buttonDiv"></div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<!-- File Upload -->
-<form
-	action="/"
-	method="post"
-	class="dropzone"
-	id="myAwesomeDropzone"
-	data-plugin="dropzone"
-	data-previews-container="#file-previews"
-	data-upload-preview-template="#uploadPreviewTemplate">
-	<div class="fallback">
-		<input name="file" type="file" multiple />
-	</div>
-
-	<div class="dz-message needsclick">
-		<i class="h1 text-muted ri-upload-cloud-2-line"></i>
-		<h3>Drop files here or click to upload.</h3>
-		<span class="text-muted font-13"
-			>(This is just a demo dropzone. Selected files are
-			<strong>not</strong> actually uploaded.)</span
-		>
-	</div>
-</form>
-
-<!-- Preview -->
-<div class="dropzone-previews mt-3" id="file-previews"></div>
-
-<!-- file preview template -->
-<div class="d-none" id="uploadPreviewTemplate">
-	<div class="card mt-1 mb-0 shadow-none border">
-		<div class="p-2">
-			<div class="row align-items-center">
-				<div class="col-auto">
-					<img
-						data-dz-thumbnail
-						src="#"
-						class="avatar-sm rounded bg-light"
-						alt="" />
-				</div>
-				<div class="col ps-0">
-					<a
-						href="javascript:void(0);"
-						class="text-muted fw-bold"
-						data-dz-name></a>
-					<p class="mb-0" data-dz-size></p>
-				</div>
-				<div class="col-auto">
-					<!-- Button -->
-					<a href="" class="btn btn-link btn-lg text-muted" data-dz-remove>
-						<i class="ri-close-line"></i>
-					</a>
 				</div>
 			</div>
 		</div>

@@ -6,7 +6,7 @@ import {
 	Router,
 	RouterStateSnapshot,
 } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
@@ -18,9 +18,7 @@ export class AuthGuard implements CanActivate {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): Observable<boolean> | Promise<boolean> | boolean {
-		const token = this.authService.token;
-
-		this.authService.validateToken(token).subscribe({
+		this.authService.validateToken().subscribe({
 			next: () => {
 				return true;
 			},

@@ -54,3 +54,7 @@ export interface SearchResponse extends ResponseInterface {
 		users: User[];
 	};
 }
+
+export interface UploadResponse extends ResponseInterface {
+	data: User;
+}

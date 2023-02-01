@@ -1,28 +1,34 @@
 import { AuthService } from '@services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from '@interfaces/user.interface';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { UserService } from '@services/user.service';
 
 @Component({
 	selector: 'app-navbar',
 	templateUrl: './navbar.component.html',
 	styles: [],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 	user!: User;
-	message = '';
-
-	constructor(private authService: AuthService, private router: Router) {}
+	constructor(
+		private authService: AuthService,
+		private userService: UserService,
+		private router: Router
+	) {}
 
 	ngOnInit(): void {
-		this.user = this.authService.user;
-		this.authService.msg.subscribe({
-			next: (res) => {
-				this.message = res;
-			},
+		this.getUser();
+	}
+
+	ngOnDestroy(): void {
+		this.getUser().unsubscribe();
+	}
+
+	getUser() {
+		return this.userService.user$.subscribe({
+			next: (user) => (this.user = user),
 		});
-		// console.log('message', this.authService.message);
 	}
 
 	logout() {
