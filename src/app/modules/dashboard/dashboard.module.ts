@@ -10,10 +10,11 @@ import { HospitalsComponent } from './pages/hospitals/hospitals.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
+		FormsModule,
 		DashboardRoutingModule,
+		PaginationModule.forRoot(),
 		SharedModule,
 	],
 })

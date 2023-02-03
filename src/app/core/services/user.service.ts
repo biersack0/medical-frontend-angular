@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserResponse, UsersResponse } from '@interfaces/index';
+import {
+	ResponseInterface,
+	UserResponse,
+	UsersResponse,
+} from '@interfaces/index';
 import { User } from '@interfaces/user.interface';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -20,6 +24,8 @@ export class UserService {
 		isActive: true,
 	});
 
+	private _refresh$ = new Subject<void>();
+
 	get user$() {
 		return this._user$;
 	}
@@ -27,6 +33,10 @@ export class UserService {
 	setUser(user: User) {
 		localStorage.setItem('user', JSON.stringify(user));
 		this._user$.next(user);
+	}
+
+	get refresh$() {
+		return this._refresh$;
 	}
 
 	constructor(private http: HttpClient) {
@@ -39,17 +49,29 @@ export class UserService {
 		}
 	}
 
-	getUsers() {
-		return this.http.get<UsersResponse>(`${this.apiUrl}/user`);
+	getUsers(limit = 10, page = 1) {
+		return this.http.get<UsersResponse>(
+			`${this.apiUrl}/user?limit=${limit}&page=${page}`
+		);
 	}
 
-	updateUser(id: string, name: string) {
-		const data = { name };
-		/* {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		} */
-		return this.http.patch<UserResponse>(`${this.apiUrl}/user/${id}`, data);
+	createUser(email: string, password: string, name: string, isActive: boolean) {
+		const data = { email, password, name, isActive };
+		return this.http
+			.post<UserResponse>(`${this.apiUrl}/user`, data)
+			.pipe(tap(() => this._refresh$.next()));
+	}
+
+	updateUser(id: string, name: string, isActive?: boolean) {
+		const data = { name, isActive };
+		return this.http
+			.patch<UserResponse>(`${this.apiUrl}/user/${id}`, data)
+			.pipe(tap(() => this._refresh$.next()));
+	}
+
+	deleteUser(id: string) {
+		return this.http
+			.delete<ResponseInterface>(`${this.apiUrl}/user/${id}`)
+			.pipe(tap(() => this._refresh$.next()));
 	}
 }

@@ -7,9 +7,12 @@ const baseUrl = environment.apiUrl;
 	name: 'notImage',
 })
 export class NotImagePipe implements PipeTransform {
-	transform(value: string | undefined, ...args: unknown[]): string {
+	transform(
+		value: string | undefined,
+		type: 'user' | 'hospital' | 'doctor'
+	): string {
 		if (value == null || value == undefined) {
-			return `${baseUrl}/upload/user/default-user.png`;
+			return `${baseUrl}/upload/${type}/default-user.png`;
 		}
 
 		if (value.includes('googleusercontent')) {

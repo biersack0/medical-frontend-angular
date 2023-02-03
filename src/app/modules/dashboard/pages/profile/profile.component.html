@@ -60,7 +60,9 @@
 										<img
 											*ngIf="!imagePrev"
 											class="img-fluid"
-											[src]="user.image | notImage | safe : 'resourceUrl'"
+											[src]="
+												user.image | notImage : 'user' | safe : 'resourceUrl'
+											"
 											alt="imagen-perfil" />
 										<img
 											*ngIf="imagePrev"

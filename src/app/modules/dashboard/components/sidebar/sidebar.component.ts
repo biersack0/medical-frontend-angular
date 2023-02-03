@@ -8,27 +8,27 @@ import { Component } from '@angular/core';
 export class SidebarComponent {
 	routes = [
 		{
-			name: 'Home',
+			name: 'Inicio',
 			path: '/dashboard',
 			icon: 'uil-home-alt',
 		},
 		{
-			name: 'Profile',
+			name: 'Mi perfil',
 			path: '/dashboard/profile',
 			icon: 'uil-user',
 		},
 		{
-			name: 'Users',
+			name: 'Usuarios',
 			path: '/dashboard/users',
 			icon: 'uil-users-alt',
 		},
 		{
-			name: 'Doctors',
+			name: 'Doctores',
 			path: '/dashboard/doctors',
 			icon: 'uil-user-plus',
 		},
 		{
-			name: 'Hospitals',
+			name: 'Hospitales',
 			path: '/dashboard/hospitals',
 			icon: 'uil-building',
 		},

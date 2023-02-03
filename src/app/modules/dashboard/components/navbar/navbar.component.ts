@@ -37,6 +37,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 	}
 
 	goToProfile() {
-		this.router.navigate(['/profile']);
+		this.router.navigate(['/dashboard/profile']);
 	}
 }

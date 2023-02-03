@@ -295,7 +295,7 @@
 					aria-expanded="false">
 					<span class="account-user-avatar">
 						<img
-							[src]="user.image | notImage | safe : 'resourceUrl'"
+							[src]="user.image | notImage : 'user' | safe : 'resourceUrl'"
 							alt="user-image"
 							width="32"
 							referrerpolicy="no-referrer"

@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { UserService } from '@services/user.service';
 import { finalize } from 'rxjs';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { ValidationUtils } from 'src/app/shared/utils/validation-utils';
-import Swal from 'sweetalert2';
 
 declare const google: any;
 
@@ -31,11 +31,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
 		private router: Router,
 		private authService: AuthService,
 		private userService: UserService,
+		private sweetAlertService: SweetAlertService,
 		private ngZone: NgZone
 	) {}
 
 	ngOnInit(): void {
 		this.initLoginForm();
+
+		if (localStorage.getItem('remember_email')) {
+			this.loginForm
+				.get('email')
+				?.setValue(localStorage.getItem('remember_email'));
+
+			this.loginForm.get('remember')?.setValue(true);
+		}
 	}
 
 	ngAfterViewInit(): void {
@@ -73,35 +82,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
 						this.userService.setUser(user);
 
 						if (remember) {
-							localStorage.setItem('remember', JSON.stringify(remember));
+							localStorage.setItem('remember_email', email);
 						}
 
 						this.router.navigate(['/dashboard']);
 					},
 					error: ({ error }) => {
-						if (error.errors) {
-							const getStrings = (arr: []): string[] => {
-								return arr.reduce(
-									(result: any[], obj: any) =>
-										result.concat(...Object.values(obj)),
-									[]
-								);
-							};
-
-							Swal.fire({
-								title: `${error.message}`,
-								html: `${getStrings(error.errors).join('<br>')}`,
-								icon: 'error',
-								confirmButtonText: 'Close',
-							});
-						}
-
-						Swal.fire({
-							title: 'Error',
-							text: `${error.message}`,
-							icon: 'error',
-							confirmButtonText: 'Close',
-						});
+						this.sweetAlertService.errorAlert(error);
 					},
 				});
 		}
@@ -131,6 +118,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 				this.userService.setUser(user);
 				localStorage.setItem('token', access_token);
 				localStorage.setItem('loginGoogle', 'true');
+				localStorage.removeItem('remember_email');
 
 				this.router.navigate(['/dashboard']);
 			},
