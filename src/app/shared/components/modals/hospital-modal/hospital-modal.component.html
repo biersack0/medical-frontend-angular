@@ -1,0 +1,41 @@
+<div class="modal-header">
+	<h4 class="modal-title pull-left">
+		{{ isCreate ? 'Crear' : 'Actualizar' }} hospital
+	</h4>
+	<button
+		type="button"
+		class="btn-close close pull-right"
+		aria-label="Close"
+		(click)="bsModalRef.hide()">
+		<span aria-hidden="true" class="visually-hidden">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<form [formGroup]="hospitalForm" (ngSubmit)="createHospital()">
+		<div class="mb-3">
+			<app-control-message [control]="hospitalForm.get('name')!">
+				<label for="fullname" class="form-label">Nombre</label>
+				<input
+					class="form-control"
+					type="text"
+					formControlName="name"
+					placeholder="Ingrese el nombre" />
+			</app-control-message>
+		</div>
+
+		<app-upload-image
+			*ngIf="hospitalToUpdate"
+			[type]="'hospital'"
+			[model]="hospitalToUpdate!"></app-upload-image>
+
+		<button type="submit" class="p-0" style="border: 0"></button>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-seconday" (click)="bsModalRef.hide()">
+		Cerrar
+	</button>
+	<button class="btn btn-primary" type="button" (click)="createHospital()">
+		Guardar
+	</button>
+</div>

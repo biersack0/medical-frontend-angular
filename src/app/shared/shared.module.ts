@@ -7,12 +7,16 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { UserModalComponent } from './components/modals/user-modal/user-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { HospitalModalComponent } from './components/modals/hospital-modal/hospital-modal.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 @NgModule({
 	declarations: [
 		ControlMessageComponent,
 		NotImagePipe,
 		SafePipe,
 		UserModalComponent,
+		HospitalModalComponent,
+		UploadImageComponent,
 	],
 	imports: [
 		CommonModule,
@@ -23,8 +27,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 	exports: [
 		ControlMessageComponent,
 		UserModalComponent,
+		HospitalModalComponent,
 		NotImagePipe,
 		SafePipe,
+		UploadImageComponent,
 	],
 })
 export class SharedModule {}

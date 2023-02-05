@@ -1,6 +1,8 @@
+import { HospitalService } from '@services/hospital.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UploadResponse } from '@interfaces/index';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 type typesToUpload = 'doctor' | 'hospital' | 'user';
@@ -11,7 +13,10 @@ type typesToUpload = 'doctor' | 'hospital' | 'user';
 export class UploadService {
 	private apiUrl: string;
 
-	constructor(private http: HttpClient) {
+	constructor(
+		private http: HttpClient,
+		private hospitalService: HospitalService
+	) {
 		this.apiUrl = environment.apiUrl;
 	}
 
@@ -19,9 +24,8 @@ export class UploadService {
 		const formData = new FormData();
 		formData.append('file', file);
 
-		return this.http.post<UploadResponse>(
-			`${this.apiUrl}/upload/${type}/${id}`,
-			formData
-		);
+		return this.http
+			.post<UploadResponse>(`${this.apiUrl}/upload/${type}/${id}`, formData)
+			.pipe(tap(() => this.hospitalService.refresh$.next()));
 	}
 }

@@ -6,4 +6,5 @@ export interface Doctor {
 	name: string;
 	user: User;
 	hospital: Hospital | null;
+	image?: string;
 }

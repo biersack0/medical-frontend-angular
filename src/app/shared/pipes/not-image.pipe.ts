@@ -11,14 +11,14 @@ export class NotImagePipe implements PipeTransform {
 		value: string | undefined,
 		type: 'user' | 'hospital' | 'doctor'
 	): string {
-		if (value == null || value == undefined) {
+		if (value == null || (value == undefined && type === 'user')) {
 			return `${baseUrl}/upload/${type}/default-user.png`;
-		}
-
-		if (value.includes('googleusercontent')) {
+		} else if (value == null || value == undefined) {
+			return `${baseUrl}/upload/${type}/no-image.jpg`;
+		} else if (value.includes('googleusercontent')) {
 			return value;
 		}
 
-		return `${baseUrl}/upload/user/${value}`;
+		return `${baseUrl}/upload/${type}/${value}`;
 	}
 }

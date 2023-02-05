@@ -38,6 +38,10 @@ export interface HospitalsResponse extends ResponseInterface {
 	};
 }
 
+export interface HospitalResponse extends ResponseInterface {
+	data: Hospital;
+}
+
 export interface DoctorsResponse extends ResponseInterface {
 	data: {
 		total: number;

@@ -1,1 +1,89 @@
-<p>hospitals works!</p>
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="row mb-2">
+					<div class="col-xl-8">
+						<form
+							class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+							<div class="col-auto">
+								<input
+									type="text"
+									class="form-control"
+									#inputPassword
+									(keyup)="search(inputPassword.value)"
+									placeholder="Buscar hospital" />
+							</div>
+						</form>
+					</div>
+					<div class="col-xl-4">
+						<div class="text-xl-end mt-xl-0 mt-2">
+							<button
+								type="button"
+								class="btn btn-danger mb-2 me-2"
+								(click)="addHospital()">
+								<i class="ri-user-add-line me-1"></i> Agregar hospital
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="table-responsive">
+					<table class="table table-centered table-nowrap mb-0">
+						<thead class="table-light">
+							<tr>
+								<th style="width: 42px">Imagen</th>
+								<th>Nombre</th>
+								<th style="width: 125px">Acción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="hospitals.length === 0">
+								<td colspan="6" class="text-center my-3">No hay hospitales</td>
+							</tr>
+
+							<ng-container *ngIf="hospitals">
+								<tr *ngFor="let hospital of hospitals">
+									<td>
+										<img
+											class="img-fluid"
+											[src]="
+												hospital.image
+													| notImage : 'hospital'
+													| safe : 'resourceUrl'
+											"
+											alt="imagen-perfil" />
+									</td>
+									<td>
+										{{ hospital.name }}
+									</td>
+									<td>
+										<a (click)="updateHospital(hospital)" class="action-icon">
+											<i class="mdi mdi-square-edit-outline"></i
+										></a>
+										<a
+											(click)="deleteHospital(hospital._id)"
+											class="action-icon">
+											<i class="mdi mdi-delete"></i
+										></a>
+									</td>
+								</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="row mt-3 d-flex justify-content-center">
+					<div class="col-auto">
+						<pagination
+							[totalItems]="totalHospitals"
+							[(ngModel)]="currentPage"
+							(pageChanged)="getHospitalsByPage($event)"
+							[nextText]="'Siguiente'"
+							[previousText]="'Anterior'"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

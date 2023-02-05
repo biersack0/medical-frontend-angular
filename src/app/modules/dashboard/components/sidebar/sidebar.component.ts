@@ -23,14 +23,14 @@ export class SidebarComponent {
 			icon: 'uil-users-alt',
 		},
 		{
-			name: 'Doctores',
-			path: '/dashboard/doctors',
-			icon: 'uil-user-plus',
-		},
-		{
 			name: 'Hospitales',
 			path: '/dashboard/hospitals',
 			icon: 'uil-building',
+		},
+		{
+			name: 'Doctores',
+			path: '/dashboard/doctors',
+			icon: 'uil-user-plus',
 		},
 	];
 }
