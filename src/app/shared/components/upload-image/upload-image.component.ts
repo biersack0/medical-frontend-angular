@@ -4,6 +4,7 @@ import { Doctor } from '@interfaces/doctor.interface';
 import { Hospital } from '@interfaces/hospital.interface';
 import { UploadService } from '@services/upload.service';
 import Swal from 'sweetalert2';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 
 @Component({
 	selector: 'app-upload-image',
@@ -17,7 +18,10 @@ export class UploadImageComponent {
 	imageToUpload: File | undefined;
 	imagePrev: any;
 
-	constructor(private uploadService: UploadService) {
+	constructor(
+		private uploadService: UploadService,
+		private sweetAlertService: SweetAlertService
+	) {
 		this.initUploadForm();
 	}
 
@@ -74,8 +78,12 @@ export class UploadImageComponent {
 			this.uploadService
 				.uploadImage(this.imageToUpload, this.model._id, this.type)
 				.subscribe({
-					next: ({ data }) => {
-						console.log(data);
+					next: () => {
+						this.sweetAlertService.successAlert(
+							false,
+							'Imagen Cargada',
+							'Se añadio la imagen.'
+						);
 					},
 				});
 		}

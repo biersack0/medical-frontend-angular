@@ -15,6 +15,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgChartsModule } from 'ng2-charts';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +30,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 		BreadcrumbComponent,
 		HomeComponent,
 		ProfileComponent,
+		SettingsComponent,
 	],
 	imports: [
 		CommonModule,
@@ -36,6 +39,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 		DashboardRoutingModule,
 		PaginationModule.forRoot(),
 		SharedModule,
+		NgChartsModule,
 	],
 })
 export class DashboardModule {}

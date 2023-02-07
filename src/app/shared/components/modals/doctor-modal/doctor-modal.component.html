@@ -1,0 +1,51 @@
+<div class="modal-header">
+	<h4 class="modal-title pull-left">
+		{{ isCreate ? 'Crear' : 'Actualizar' }} doctor
+	</h4>
+	<button
+		type="button"
+		class="btn-close close pull-right"
+		aria-label="Close"
+		(click)="bsModalRef.hide()">
+		<span aria-hidden="true" class="visually-hidden">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<form [formGroup]="doctorForm" (ngSubmit)="createDoctor()">
+		<div class="mb-3">
+			<app-control-message [control]="doctorForm.get('name')!">
+				<label for="fullname" class="form-label">Nombre</label>
+				<input
+					class="form-control"
+					type="text"
+					formControlName="name"
+					placeholder="Ingrese el nombre" />
+			</app-control-message>
+		</div>
+
+		<div class="mb-3">
+			<app-control-message [control]="doctorForm.get('hospitalId')!">
+				<label for="" class="form-label">Hospital</label>
+				<ng-select
+					formControlName="hospitalId"
+					[items]="hospitals"
+					bindValue="_id"
+					bindLabel="name"
+					placeholder="Seleccionar"
+					[searchable]="true"
+					[clearable]="false">
+				</ng-select>
+			</app-control-message>
+		</div>
+
+		<button type="submit" class="p-0" style="border: 0"></button>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-seconday" (click)="bsModalRef.hide()">
+		Cerrar
+	</button>
+	<button class="btn btn-primary" type="button" (click)="createDoctor()">
+		Guardar
+	</button>
+</div>

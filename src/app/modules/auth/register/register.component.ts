@@ -37,7 +37,6 @@ export class RegisterComponent implements OnInit {
 		this.registerForm.markAllAsTouched();
 		if (this.registerForm.valid) {
 			const { name, email, password } = this.registerForm.value;
-			console.log(name, email, password);
 		}
 	}
 

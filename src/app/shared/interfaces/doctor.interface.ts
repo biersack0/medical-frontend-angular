@@ -5,6 +5,6 @@ export interface Doctor {
 	_id: string;
 	name: string;
 	user: User;
-	hospital: Hospital | null;
+	hospital?: Hospital | null;
 	image?: string;
 }

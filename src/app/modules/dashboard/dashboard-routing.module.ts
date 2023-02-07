@@ -15,22 +15,27 @@ const routes: Routes = [
 			{
 				path: '',
 				component: HomeComponent,
+				data: { title: 'Inicio' },
 			},
 			{
 				path: 'profile',
 				component: ProfileComponent,
+				data: { title: 'Mi Perfil' },
 			},
 			{
 				path: 'doctors',
 				component: DoctorsComponent,
+				data: { title: 'Doctores' },
 			},
 			{
 				path: 'hospitals',
 				component: HospitalsComponent,
+				data: { title: 'Hospitales' },
 			},
 			{
 				path: 'users',
 				component: UsersComponent,
+				data: { title: 'Usuarios' },
 			},
 			{ path: '', pathMatch: 'full', redirectTo: '' },
 		],

@@ -1,1 +1,91 @@
-<p>doctors works!</p>
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="row mb-2">
+					<div class="col-xl-8">
+						<form
+							class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+							<div class="col-auto">
+								<input
+									type="text"
+									class="form-control"
+									#inputPassword
+									(keyup)="search(inputPassword.value)"
+									placeholder="Buscar doctor" />
+							</div>
+						</form>
+					</div>
+					<div class="col-xl-4">
+						<div class="text-xl-end mt-xl-0 mt-2">
+							<button
+								type="button"
+								class="btn btn-danger mb-2 me-2"
+								(click)="addDoctor()">
+								<i class="ri-user-add-line me-1"></i> Agregar doctor
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="table-responsive">
+					<table class="table table-centered table-nowrap mb-0">
+						<thead class="table-light">
+							<tr>
+								<th style="width: 42px">Imagen</th>
+								<th>Nombre</th>
+								<th>Hospital</th>
+								<th style="width: 125px">Acción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="doctors.length === 0">
+								<td colspan="6" class="text-center my-3">No hay doctores</td>
+							</tr>
+
+							<ng-container *ngIf="doctors">
+								<tr *ngFor="let doctor of doctors">
+									<td>
+										<img
+											class="img-fluid"
+											[src]="
+												doctor.image
+													| notImage : 'doctor'
+													| safe : 'resourceUrl'
+											"
+											alt="imagen-perfil" />
+									</td>
+									<td>
+										{{ doctor.name }}
+									</td>
+									<td>
+										{{ doctor.hospital?.name }}
+									</td>
+									<td>
+										<a (click)="updateDoctor(doctor)" class="action-icon">
+											<i class="mdi mdi-square-edit-outline"></i
+										></a>
+										<a (click)="deleteDoctor(doctor._id)" class="action-icon">
+											<i class="mdi mdi-delete"></i
+										></a>
+									</td>
+								</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="row mt-3 d-flex justify-content-center">
+					<div class="col-auto">
+						<pagination
+							[totalItems]="totalDoctors"
+							[(ngModel)]="currentPage"
+							(pageChanged)="getDoctorsByPage($event)"
+							[nextText]="'Siguiente'"
+							[previousText]="'Anterior'"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

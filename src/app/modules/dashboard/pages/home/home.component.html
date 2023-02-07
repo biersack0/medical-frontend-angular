@@ -1,1 +1,21 @@
-<p>home works!</p>
+<div class="row">
+	<div class="col-md-6" *ngFor="let graphic of graphics">
+		<div class="card">
+			<div
+				class="d-flex card-header justify-content-between align-items-center pb-0">
+				<h4 class="header-title">{{ graphic.title }}</h4>
+			</div>
+			<div class="card-body">
+				<div>
+					<canvas
+						baseChart
+						class="chart"
+						[data]="graphic.data"
+						[options]="doughnutChartOptions"
+						[type]="doughnutChartType">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

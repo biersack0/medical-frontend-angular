@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '@interfaces/user.interface';
 import { UploadService } from '@services/upload.service';
 import { UserService } from '@services/user.service';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { ValidationUtils } from 'src/app/shared/utils/validation-utils';
 import Swal from 'sweetalert2';
 
@@ -21,7 +22,8 @@ export class ProfileComponent implements OnInit {
 
 	constructor(
 		private uploadService: UploadService,
-		private userService: UserService
+		private userService: UserService,
+		private sweetAlertService: SweetAlertService
 	) {}
 
 	ngOnInit(): void {
@@ -116,6 +118,11 @@ export class ProfileComponent implements OnInit {
 				.subscribe({
 					next: ({ data }) => {
 						this.userService.setUser(data);
+						this.sweetAlertService.successAlert(
+							false,
+							'Imagen Cargada',
+							'Se añadio la imagen.'
+						);
 					},
 				});
 		}

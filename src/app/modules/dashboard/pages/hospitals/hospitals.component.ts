@@ -53,8 +53,6 @@ export class HospitalsComponent implements OnInit, OnDestroy {
 	getHospitals(limit = 10, page = 1) {
 		this.hospitalService.getHospitals(limit, page).subscribe({
 			next: ({ data }) => {
-				console.log(data);
-
 				this.hospitals = data.hospitals;
 				this.hospitalsTemp = data.hospitals;
 				this.totalHospitals = data.total;

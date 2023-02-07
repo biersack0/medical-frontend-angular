@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HospitalModalComponent } from './components/modals/hospital-modal/hospital-modal.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { DoctorModalComponent } from './components/modals/doctor-modal/doctor-modal.component';
 @NgModule({
 	declarations: [
 		ControlMessageComponent,
@@ -17,6 +18,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 		UserModalComponent,
 		HospitalModalComponent,
 		UploadImageComponent,
+		DoctorModalComponent,
 	],
 	imports: [
 		CommonModule,
@@ -31,6 +33,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 		NotImagePipe,
 		SafePipe,
 		UploadImageComponent,
+		DoctorModalComponent,
 	],
 })
 export class SharedModule {}
