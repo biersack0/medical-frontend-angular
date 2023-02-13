@@ -49,13 +49,14 @@ export class DoctorService {
 
 	createDoctor(name: string, hospitalId: string) {
 		const data = { name, hospital: hospitalId };
+
 		return this.http
 			.post<DoctorResponse>(`${this.apiUrl}/doctor`, data)
 			.pipe(tap(() => this._refresh$.next()));
 	}
 
-	updateDoctor(id: string, name: string) {
-		const data = { name };
+	updateDoctor(id: string, name: string, hospitalId: string) {
+		const data = { name, hospital: hospitalId };
 		return this.http
 			.patch<DoctorResponse>(`${this.apiUrl}/doctor/${id}`, data)
 			.pipe(tap(() => this._refresh$.next()));

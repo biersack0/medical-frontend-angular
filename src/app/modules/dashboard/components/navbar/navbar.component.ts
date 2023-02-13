@@ -77,4 +77,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 	goToProfile() {
 		this.router.navigate(['/dashboard/profile']);
 	}
+
+	changeTheme() {
+		this.settingsService.changePropertyTheme('data-theme', '');
+	}
 }

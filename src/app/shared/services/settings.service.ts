@@ -17,11 +17,26 @@ export class SettingsService {
 		'data-menu-color': 'dark',
 	};
 	constructor() {
-		// this.changeTheme('');
-		// const themeStorage = localStorage.getItem('defaultTheme');
+		if (localStorage.getItem('defaultTheme')) {
+			this.defaultTheme = JSON.parse(localStorage.getItem('defaultTheme')!);
+
+			this.rootHTML.setAttribute('data-theme', this.defaultTheme['data-theme']);
+			this.rootHTML.setAttribute(
+				'data-topbar-color',
+				this.defaultTheme['data-topbar-color']
+			);
+			this.rootHTML.setAttribute(
+				'data-menu-color',
+				this.defaultTheme['data-menu-color']
+			);
+		}
 	}
 
 	changePropertyTheme(property: string, value: string) {
+		if (property === 'data-theme' && value === '') {
+			value = this.defaultTheme['data-theme'] === 'light' ? 'dark' : 'light';
+		}
+
 		this.defaultTheme[property as keyof DefaultTheme] = value;
 		this.rootHTML.setAttribute(property, value);
 		localStorage.setItem('defaultTheme', JSON.stringify(this.defaultTheme));

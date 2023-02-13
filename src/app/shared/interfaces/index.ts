@@ -52,7 +52,7 @@ export interface DoctorsResponse extends ResponseInterface {
 }
 
 export interface DoctorResponse extends ResponseInterface {
-	data: Hospital;
+	data: Doctor;
 }
 
 export interface SearchResponse extends ResponseInterface {

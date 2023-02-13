@@ -38,7 +38,7 @@ export class DoctorModalComponent implements OnInit {
 	initDoctorForm() {
 		this.doctorForm = new FormGroup({
 			name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-			hospitalId: new FormControl('', [Validators.required]),
+			hospitalId: new FormControl(null, [Validators.required]),
 		});
 	}
 
@@ -46,6 +46,10 @@ export class DoctorModalComponent implements OnInit {
 		this.hospitalService.getHospitals().subscribe({
 			next: ({ data }) => {
 				this.hospitals = data.hospitals;
+				if (this.doctorToUpdate) {
+					const { hospital } = this.doctorToUpdate;
+					this.doctorForm.controls['hospitalId'].setValue(hospital);
+				}
 			},
 		});
 	}
@@ -55,15 +59,35 @@ export class DoctorModalComponent implements OnInit {
 		if (this.doctorForm.valid) {
 			const { name, hospitalId } = this.doctorForm.value;
 
-			this.doctorService.createDoctor(name, hospitalId).subscribe({
-				next: () => {
-					this.bsModalRef.hide();
-					this.sweetAlertService.successAlert(false);
-				},
-				error: ({ error }) => {
-					this.sweetAlertService.errorAlert(error);
-				},
-			});
+			if (this.isCreate) {
+				this.doctorService.createDoctor(name, hospitalId._id).subscribe({
+					next: () => {
+						this.bsModalRef.hide();
+						this.sweetAlertService.successAlert(false);
+					},
+					error: ({ error }) => {
+						this.sweetAlertService.errorAlert(error);
+					},
+				});
+			} else {
+				this.doctorService
+					.updateDoctor(this.doctorToUpdate!._id, name, hospitalId._id)
+					.subscribe({
+						next: ({ data }) => {
+							this.bsModalRef.hide();
+							this.sweetAlertService.successAlert(true);
+							if (
+								this.doctorService.doctor$.getValue()?._id ===
+								this.doctorToUpdate?._id
+							) {
+								this.doctorService.setDoctor(data);
+							}
+						},
+						error: ({ error }) => {
+							this.sweetAlertService.errorAlert(error);
+						},
+					});
+			}
 		}
 	}
 }

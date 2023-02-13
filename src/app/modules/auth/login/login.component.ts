@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 	passwordType = 'password';
 	isLoading = false;
 	@ViewChild('googleBtn') googleBtn!: ElementRef;
+	year: number = new Date().getFullYear();
 
 	constructor(
 		private router: Router,

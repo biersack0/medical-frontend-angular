@@ -6,20 +6,20 @@
 				<!-- Logo light -->
 				<a [routerLink]="['/dashboard']" class="logo-light">
 					<span class="logo-lg">
-						<img src="assets/images/logo.png" alt="logo" />
+						<img src="assets/img/logo.png" alt="logo" />
 					</span>
 					<span class="logo-sm">
-						<img src="assets/images/logo-sm.png" alt="small logo" />
+						<img src="assets/img/logo.png" alt="small logo" />
 					</span>
 				</a>
 
 				<!-- Logo Dark -->
 				<a [routerLink]="['/dashboard']" class="logo-dark">
 					<span class="logo-lg">
-						<img src="assets/images/logo-dark.png" alt="dark logo" />
+						<img src="assets/img/logo.png" alt="dark logo" />
 					</span>
 					<span class="logo-sm">
-						<img src="assets/images/logo-dark-sm.png" alt="small logo" />
+						<img src="assets/img/logo.png" alt="small logo" />
 					</span>
 				</a>
 			</div>
@@ -202,21 +202,13 @@
 			</li>
 
 			<li class="d-none d-sm-inline-block">
-				<a
-					class="nav-link"
-					data-bs-toggle="offcanvas"
-					href="#theme-settings-offcanvas">
-					<i class="ri-settings-3-line font-22"></i>
-				</a>
-			</li>
-
-			<li class="d-none d-sm-inline-block">
 				<div
 					class="nav-link"
 					id="light-dark-mode"
 					data-bs-toggle="tooltip"
 					data-bs-placement="left"
-					title="Theme Mode">
+					title="Theme Mode"
+					(click)="changeTheme()">
 					<i class="ri-moon-line font-22"></i>
 				</div>
 			</li>

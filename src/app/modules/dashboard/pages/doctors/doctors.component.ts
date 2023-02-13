@@ -87,10 +87,10 @@ export class DoctorsComponent implements OnInit, OnDestroy {
 			isCreate: false,
 		};
 
-		/* this.bsModalRef = this.modalService.show(HospitalModalComponent, {
+		this.bsModalRef = this.modalService.show(DoctorModalComponent, {
 			initialState,
 			class: 'modal-dialog-centered',
-		}); */
+		});
 	}
 
 	deleteDoctor(id: string) {
