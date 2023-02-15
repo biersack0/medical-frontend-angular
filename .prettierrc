@@ -8,5 +8,5 @@
   "trailingComma": "es5",
   "bracketSameLine": true,
   "singleAttributePerLine": false,
-  "printWidth": 200
+  "printWidth": 150
 }

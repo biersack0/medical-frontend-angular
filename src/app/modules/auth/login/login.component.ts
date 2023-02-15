@@ -1,11 +1,4 @@
-import {
-	AfterViewInit,
-	Component,
-	ElementRef,
-	NgZone,
-	OnInit,
-	ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
@@ -28,21 +21,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
 	@ViewChild('googleBtn') googleBtn!: ElementRef;
 	year: number = new Date().getFullYear();
 
-	constructor(
-		private router: Router,
-		private authService: AuthService,
-		private userService: UserService,
-		private sweetAlertService: SweetAlertService,
-		private ngZone: NgZone
-	) {}
+	constructor(private router: Router, private authService: AuthService, private userService: UserService, private sweetAlertService: SweetAlertService, private ngZone: NgZone) {}
 
 	ngOnInit(): void {
+		if (localStorage.getItem('user') && localStorage.getItem('token')) {
+			this.router.navigate(['/dashboard']);
+			return;
+		}
+
 		this.initLoginForm();
 
 		if (localStorage.getItem('remember_email')) {
-			this.loginForm
-				.get('email')
-				?.setValue(localStorage.getItem('remember_email'));
+			this.loginForm.get('email')?.setValue(localStorage.getItem('remember_email'));
 
 			this.loginForm.get('remember')?.setValue(true);
 		}
@@ -54,14 +44,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 	initLoginForm() {
 		this.loginForm = new FormGroup({
-			email: new FormControl('', [
-				Validators.required,
-				new ValidationUtils().isValidEmail(),
-			]),
-			password: new FormControl('', [
-				Validators.required,
-				Validators.minLength(8),
-			]),
+			email: new FormControl('', [Validators.required, new ValidationUtils().isValidEmail()]),
+			password: new FormControl('', [Validators.required, Validators.minLength(8)]),
 			remember: new FormControl(false),
 		});
 	}
@@ -97,8 +81,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 	initGoogle() {
 		google.accounts.id.initialize({
-			client_id:
-				'978287541699-odnrojssenjn7g83h811k8eaf8rf22c4.apps.googleusercontent.com',
+			client_id: '978287541699-odnrojssenjn7g83h811k8eaf8rf22c4.apps.googleusercontent.com',
 			callback: (response: any) =>
 				this.ngZone.run(() => {
 					this.loginGoggle(response);
